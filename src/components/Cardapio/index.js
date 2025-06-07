@@ -1,49 +1,41 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import './styles.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './style.css';
 
 export default function Cardapio() {
-  const [pratos, setPratos] = useState([])
-  const [filtro, setFiltro] = useState('')
+  const [pratos, setPratos] = useState([]);
+  const [mensagem, setMensagem] = useState('');
 
   useEffect(() => {
-    async function carregarPratos() {
+    const fetchPratos = async () => {
       try {
-        const resposta = await axios.get(`${process.env.REACT_APP_API_URL}/cardapio`)
-        setPratos(resposta.data)
+        const response = await axios.get('https://prova2-29-05-2025.onrender.com/cardapio');
+        setPratos(response.data);
       } catch (error) {
-        alert('Erro ao carregar os pratos')
+        console.error('Erro ao buscar os pratos:', error);
+        setMensagem('Erro ao carregar o cardápio. Tente novamente mais tarde.');
       }
-    }
+    };
 
-    carregarPratos()
-  }, [])
-
-  const pratosFiltrados = filtro ? pratos.filter(p => p.categoria === filtro) : pratos
+    fetchPratos();
+  }, []);
 
   return (
     <div className="cardapio-container">
-      <div className="filtro">
-        <label>Filtrar por categoria:</label>
-       <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-  <option value="">Todos</option>
-  <option value="ENTRADA">Entrada</option>
-  <option value="PRATO_PRINCIPAL">Prato Principal</option>
-  <option value="SOBREMESA">Sobremesa</option>
-  <option value="BEBIDA">Bebida</option>
-</select>
-
-      </div>
-
-      <div className="grid-cardapio">
-        {pratosFiltrados.map(prato => (
-          <div key={prato.id} className="card-prato">
-            <img src={prato.urlImagem} alt={prato.nome} />
+      <h2>Cardápio</h2>
+      {mensagem && <p className="mensagem-erro">{mensagem}</p>}
+      <ul className="lista-pratos">
+        {pratos.map((prato) => (
+          <li key={prato.id} className="item-prato">
             <h3>{prato.nome}</h3>
-            <p>R$ {parseFloat(prato.preco).toFixed(2)}</p>
-          </div>
+            <p>{prato.descricao}</p>
+            <p>Preço: R$ {prato.preco}</p>
+            <p>Categoria: {prato.categoria}</p>
+            <p>Disponibilidade: {prato.disponibilidade}</p>
+            {prato.urlImagem && <img src={prato.urlImagem} alt={prato.nome} />}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
-  )
+  );
 }
