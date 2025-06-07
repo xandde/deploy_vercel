@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './style.css';
+import './styles.css';
 
 export default function Cardapio() {
   const [pratos, setPratos] = useState([]);
