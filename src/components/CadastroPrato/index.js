@@ -29,7 +29,41 @@ function CadastroPrato() {
     }));
   };
 
+
   const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('https://prova2-29-05-2025.onrender.com/cardapio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Prato cadastrado com sucesso:', data);
+    // Limpar o formulário se necessário
+    setFormData({
+      nome: '',
+      descricao: '',
+      preco: '',
+      categoria: '',
+      disponibilidade: '',
+      urlImagem: ''
+    });
+  } catch (error) {
+    console.error('Erro ao cadastrar o prato:', error);
+    alert('Erro ao cadastrar o prato. Verifique a conexão ou tente novamente.');
+  }
+};
+
+  /*const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('https://prova2-29-05-2025.onrender.com/cardapio', {
@@ -57,7 +91,7 @@ function CadastroPrato() {
     } catch (error) {
       setMensagem('Erro na requisição: ' + error.message);
     }
-  };
+  };*/
 
   return (
     <div className="cadastro-container">

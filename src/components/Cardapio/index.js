@@ -6,7 +6,23 @@ export default function Cardapio() {
   const [pratos, setPratos] = useState([]);
   const [mensagem, setMensagem] = useState('');
 
+
   useEffect(() => {
+  const fetchPratos = async () => {
+    try {
+      const response = await axios.get('https://prova2-29-05-2025.onrender.com/cardapio');
+      setPratos(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar os pratos:', error);
+      setMensagem('Erro ao carregar o cardápio. Tente novamente mais tarde.');
+    }
+  };
+
+  fetchPratos();
+}, []);
+
+
+ /* useEffect(() => {
     const fetchPratos = async () => {
       try {
         const response = await axios.get('https://prova2-29-05-2025.onrender.com/cardapio');
@@ -18,7 +34,7 @@ export default function Cardapio() {
     };
 
     fetchPratos();
-  }, []);
+  }, []);*/
 
   return (
     <div className="cardapio-container">
