@@ -1,11 +1,11 @@
 import Cardapio from '../../components/Cardapio'
 import './styles.css'
 
-export default function CardapioPage() {
+// Recebe a função que será usada para definir o prato que será editado
+export default function CardapioPage({ onEditar }) {
   return (
-    <div className="cardapio-page">
-      <h1>Cardápio</h1>
-      <Cardapio />
+    <div>
+      <Cardapio onEditar={onEditar} />
     </div>
-  )
+  );
 }

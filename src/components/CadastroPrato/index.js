@@ -1,121 +1,13 @@
 // src/components/CadastroPrato/index.js
-/*
+
 import { useState } from "react";
 import './styles.css';
 import useMensagem from '../../hooks/useMensagem';
 import logo from '../../assets/images/logo.png';
-import axios from 'axios';*/
+import axios from 'axios';
 
-import React, { useState } from 'react';
-import './styles.css';
 
 function CadastroPrato() {
-  const [formData, setFormData] = useState({
-    nome: '',
-    descricao: '',
-    preco: '',
-    categoria: '',
-    disponibilidade: '',
-    urlImagem: ''
-  });
-
-  const [mensagem, setMensagem] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const response = await fetch('https://prova2-29-05-2025.onrender.com/cardapio', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log('Prato cadastrado com sucesso:', data);
-    // Limpar o formulário se necessário
-    setFormData({
-      nome: '',
-      descricao: '',
-      preco: '',
-      categoria: '',
-      disponibilidade: '',
-      urlImagem: ''
-    });
-  } catch (error) {
-    console.error('Erro ao cadastrar o prato:', error);
-    alert('Erro ao cadastrar o prato. Verifique a conexão ou tente novamente.');
-  }
-};
-
-  /*const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('https://prova2-29-05-2025.onrender.com/cardapio', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        setMensagem('Prato cadastrado com sucesso!');
-        setFormData({
-          nome: '',
-          descricao: '',
-          preco: '',
-          categoria: '',
-          disponibilidade: '',
-          urlImagem: ''
-        });
-      } else {
-        const data = await response.json();
-        setMensagem(data.message || 'Erro ao cadastrar prato.');
-      }
-    } catch (error) {
-      setMensagem('Erro na requisição: ' + error.message);
-    }
-  };*/
-
-  return (
-    <div className="cadastro-container">
-      <h2>Cadastrar Prato</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="nome" placeholder="Nome do prato" value={formData.nome} onChange={handleChange} required />
-        <input type="text" name="descricao" placeholder="Descrição" value={formData.descricao} onChange={handleChange} required />
-        <input type="number" step="0.01" name="preco" placeholder="Preço" value={formData.preco} onChange={handleChange} required />
-        <input type="text" name="categoria" placeholder="Categoria" value={formData.categoria} onChange={handleChange} required />
-        <input type="text" name="disponibilidade" placeholder="Disponibilidade" value={formData.disponibilidade} onChange={handleChange} required />
-        <input type="text" name="urlImagem" placeholder="URL da Imagem" value={formData.urlImagem} onChange={handleChange} required />
-        <button type="submit">Cadastrar</button>
-      </form>
-      {mensagem && <p>{mensagem}</p>}
-    </div>
-  );
-}
-
-
-
-
-
-
-/*function CadastroPrato() {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
@@ -125,7 +17,7 @@ function CadastroPrato() {
 
   const { exibirMensagem } = useMensagem();
   
-  console.log('https://prova2-29-05-2025.onrender.com', process.env.REACT_APP_API_URL);
+  console.log('https://prova2-29-05-2025-rer8.onrender.com', process.env.REACT_APP_API_URL);
 
   const cadastrarPrato = async () => {
     try {
@@ -194,6 +86,6 @@ function CadastroPrato() {
      
     </div>
   );
-}*/
+}
 
 export default CadastroPrato;

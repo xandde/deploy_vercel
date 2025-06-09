@@ -1,11 +1,18 @@
 import CadastroPrato from '../../components/CadastroPrato'
 import './styles.css'
 
+
+// Recebe o prato que está sendo editado e a função para limpar a edição
 export default function CadastroPage() {
+  const [pratoEditando, setPratoEditando] = useState(null);
+
   return (
-    <div className="cadastro-page">
-      <h1>Cadastro de Prato</h1>
-      <CadastroPrato />
+    <div>
+      <CadastroPrato
+        pratoEditando={pratoEditando}
+        aoLimparEdicao={() => setPratoEditando(null)}
+      />
+      <Cardapio aoSelecionarPrato={(prato) => setPratoEditando(prato)} />
     </div>
-  )
+  );
 }
